@@ -10,7 +10,7 @@ class WithdrawDepositScreen extends StatefulWidget {
 class _WithdrawDepositScreenState extends State<WithdrawDepositScreen> {
   final WalletController walletController = Get.find();
   final TextEditingController amountController = TextEditingController();
-  String selectedOption = 'deposit'; // default selection
+  String selectedOption = ''; // Set default value to empty
 
   @override
   Widget build(BuildContext context) {
@@ -23,33 +23,41 @@ class _WithdrawDepositScreenState extends State<WithdrawDepositScreen> {
             TextField(
               controller: amountController,
               decoration: InputDecoration(labelText: 'Enter amount'),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text, // Change to text to support letters
+              inputFormatters: [
+                // Optionally, add input formatters here
+              ],
             ),
             SizedBox(height: 20),
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ListTile(
-                  title: const Text('Deposit'),
-                  leading: Radio<String>(
-                    value: 'deposit',
-                    groupValue: selectedOption,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedOption = value!;
-                      });
-                    },
+                Expanded(
+                  child: ListTile(
+                    title: const Text('Deposit'),
+                    leading: Radio<String>(
+                      value: 'deposit',
+                      groupValue: selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                        });
+                      },
+                    ),
                   ),
                 ),
-                ListTile(
-                  title: const Text('Withdraw'),
-                  leading: Radio<String>(
-                    value: 'withdraw',
-                    groupValue: selectedOption,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedOption = value!;
-                      });
-                    },
+                Expanded(
+                  child: ListTile(
+                    title: const Text('Withdraw'),
+                    leading: Radio<String>(
+                      value: 'withdraw',
+                      groupValue: selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                        });
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -57,24 +65,29 @@ class _WithdrawDepositScreenState extends State<WithdrawDepositScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                String inputAmount = amountController.text.replaceAll('.', '').replaceAll(',', ''); 
+                if (selectedOption.isEmpty) { // Check if no option is selected
+                  _showMessage(context, 'Error', 'Silakan pilih opsi Deposit atau Withdraw.');
+                  return;
+                }
+
+                String inputAmount = amountController.text.trim();
+                double amount;
 
                 try {
-                  double amount = double.parse(inputAmount); // Konversi string ke double
+                  amount = _parseAmount(inputAmount); // Convert text to number
+                  
                   if (selectedOption == 'deposit') {
                     walletController.deposit(amount);
-                    _showMessage(context, 'Berhasil Menabung!',
-                        'Wow, bagus! Kamu berhasil menabung banyak uang!');
+                    _showMessage(context, 'Berhasil Menabung!', 'Berhasil memasukkan uang!');
                   } else if (selectedOption == 'withdraw') {
                     if (walletController.balance < amount) {
-                      _showMessage(context, 'Gagal Withdraw!',
-                          'Uangmu hampir habis, ayo mulai menabung.');
+                      _showMessage(context, 'Gagal Withdraw!', 'Uangmu habis, ayo mulai menabung.');
                     } else {
                       walletController.withdraw(amount);
-                      _showMessage(context, 'Berhasil Withdraw!',
-                          'Kamu berhasil melakukan withdraw.');
+                      _showMessage(context, 'Berhasil Withdraw!', 'Berhasil mengeluarkan uang.');
                     }
                   }
+                  amountController.clear(); // Clear TextEditingController
                 } catch (e) {
                   _showMessage(context, 'Error', 'Jumlah yang dimasukkan tidak valid');
                 }
@@ -87,7 +100,27 @@ class _WithdrawDepositScreenState extends State<WithdrawDepositScreen> {
     );
   }
 
-  // Fungsi untuk menampilkan pop-up
+  // Fungsi untuk mengonversi teks singkatan menjadi angka
+  double _parseAmount(String input) {
+    double amount = 0.0;
+    if (input.isEmpty) return amount;
+
+    input = input.toLowerCase();
+    if (input.contains('jt')) {
+      amount = double.parse(input.replaceAll('jt', '').trim()) * 1000000;
+    } else if (input.contains('m')) {
+      amount = double.parse(input.replaceAll('m', '').trim()) * 1000000;
+    } else if (input.contains('rb')) {
+      amount = double.parse(input.replaceAll('rb', '').trim()) * 1000;
+    } else if (input.contains('k')) {
+      amount = double.parse(input.replaceAll('k', '').trim()) * 1000;
+    } else {
+      amount = double.parse(input);
+    }
+
+    return amount;
+  }
+
   void _showMessage(BuildContext context, String title, String message) {
     showDialog(
       context: context,
@@ -101,7 +134,7 @@ class _WithdrawDepositScreenState extends State<WithdrawDepositScreen> {
           actions: [
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Tutup pop-up
+                Navigator.of(context).pop();
               },
               child: Text('OK'),
             ),
