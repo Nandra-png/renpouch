@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:motion_tab_bar_v2/motion-tab-bar.dart';
 import 'package:repouch/screens/history_screen.dart';
 import 'package:repouch/screens/main_wallet.dart';
 import 'profile_screen.dart';
@@ -13,32 +14,32 @@ class HomeScreen extends StatelessWidget {
     ProfileScreen(),
   ];
 
+  final List<String> labels = ["Wallet", "History", "Profile"];
+  final List<IconData> icons = [
+    Icons.wallet,
+    Icons.history,
+    Icons.person,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() => screens[currentIndex.value]),
-      bottomNavigationBar: Obx(() => BottomNavigationBar(
-        backgroundColor: Colors.black87, // Background color for the bottom bar
-        currentIndex: currentIndex.value,
-        onTap: (index) => currentIndex.value = index,
-        selectedItemColor: Colors.greenAccent, // Highlight color for the selected item
-        unselectedItemColor: Colors.grey, // Color for unselected items
-        showUnselectedLabels: false, // Hide labels for unselected items
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.wallet),
-            label: 'Wallet',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history_sharp),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+      body: Obx(() => IndexedStack(
+        index: currentIndex.value,
+        children: screens,
       )),
+      bottomNavigationBar: MotionTabBar(
+        labels: labels,
+        icons: icons,
+        initialSelectedTab: labels[0],
+        onTabItemSelected: (index) {
+          currentIndex.value = index;
+        },
+        tabIconColor: Colors.grey[400], // Warna ikon saat tidak terpilih
+        tabSelectedColor: Colors.greenAccent,  // Warna ikon saat terpilih
+        tabBarColor: Colors.blueGrey[800],      // Latar belakang nav bar
+        textStyle: TextStyle(color: Colors.white), // Warna teks
+      ),
     );
   }
 }
