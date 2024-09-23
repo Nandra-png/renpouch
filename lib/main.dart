@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:repouch/home_screen.dart';
-
-import 'package:repouch/login_page.dart';
-import 'package:repouch/splash_screen.dart'; // Untuk timer
+import 'package:repouch/controllers/amountparse_controller.dart';
+import 'package:repouch/controllers/wallet_controller.dart';
+import 'package:repouch/screens/home_screen.dart';
+import 'package:repouch/screens/login_page.dart';
+import 'package:repouch/screens/splash_screen.dart'; // Untuk timer
 
 void main() {
+    
+  Get.put(WalletController()); 
+  Get.put(AmountParserController()); // AmountParserController
+
   runApp(MyApp());
 }
 

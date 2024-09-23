@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:repouch/home_screen.dart';
+import 'package:repouch/screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   @override

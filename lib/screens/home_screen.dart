@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:repouch/WD_screen.dart';
-import 'package:repouch/main_wallet.dart';
+import 'package:repouch/screens/history_screen.dart';
+import 'package:repouch/screens/main_wallet.dart';
 import 'profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
 
   final List<Widget> screens = [
     WalletScreen(),
-    WithdrawDepositScreen(),
+    HistoryScreen(),
     ProfileScreen(),
   ];
 
@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         onTap: (index) => currentIndex.value = index,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.wallet), label: 'Wallet'),
-          BottomNavigationBarItem(icon: Icon(Icons.transfer_within_a_station), label: 'Withdraw/Deposit'),
+          BottomNavigationBarItem(icon: Icon(Icons.history_sharp), label: 'History'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       )),
