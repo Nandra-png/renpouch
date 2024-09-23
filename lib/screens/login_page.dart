@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/wallet.png'), // Add logo in assets 
+            Image.asset('assets/wallet.png'), 
             SizedBox(height: 20),
             Text(
               'REPOUCH',

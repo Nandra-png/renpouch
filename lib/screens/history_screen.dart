@@ -40,7 +40,7 @@ class HistoryScreen extends StatelessWidget {
                         _showTransactionDetails(context, transaction);
                       },
                       child: Card(
-                        color: Colors.grey[850], // Card background color
+                        color: Colors.grey[850], 
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
@@ -48,7 +48,7 @@ class HistoryScreen extends StatelessWidget {
                         margin: EdgeInsets.symmetric(vertical: 10),
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: isDeposit ? Colors.green : Colors.red, // Avatar color
+                            backgroundColor: isDeposit ? Colors.green : Colors.red, 
                             child: Icon(
                               isDeposit ? Icons.arrow_upward : Icons.arrow_downward,
                               color: Colors.white, // Icon color
