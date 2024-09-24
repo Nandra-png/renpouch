@@ -25,9 +25,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() => IndexedStack(
-        index: currentIndex.value,
-        children: screens,
-      )),
+            index: currentIndex.value,
+            children: screens,
+          )),
       bottomNavigationBar: MotionTabBar(
         labels: labels,
         icons: icons,
@@ -36,8 +36,8 @@ class HomeScreen extends StatelessWidget {
           currentIndex.value = index;
         },
         tabIconColor: Colors.grey[400], // Warna ikon saat tidak terpilih
-        tabSelectedColor: Colors.greenAccent,  // Warna ikon saat terpilih
-        tabBarColor: Colors.blueGrey[800],      // Latar belakang nav bar
+        tabSelectedColor: Colors.greenAccent, // Warna ikon saat terpilih
+        tabBarColor: Colors.blueGrey[800], // Latar belakang nav bar
         textStyle: TextStyle(color: Colors.white), // Warna teks
       ),
     );
