@@ -221,18 +221,18 @@ class HistoryScreen extends StatelessWidget {
                 color: isDeposit ? Colors.green : Colors.red,
               ),
               SizedBox(width: 8),
-              Text('${isDeposit ? "Deposit" : "Withdraw"} Details'),
+              Text(
+                  '${isDeposit ? "Deposit" : "Withdraw"} ${formatCurrency(transaction['amount'])}'),
             ],
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Amount: ${formatCurrency(transaction['amount'])}',
-                  style: TextStyle(color: Colors.black)),
-              SizedBox(height: 8),
-              Text('Date: ${transaction['date']}',
-                  style: TextStyle(color: Colors.black)),
+              Text('${transaction['date']}',
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
               SizedBox(height: 8),
               Text('Message: ${transaction['message']}',
                   style: TextStyle(color: Colors.black)),
