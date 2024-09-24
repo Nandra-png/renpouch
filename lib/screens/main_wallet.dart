@@ -5,17 +5,15 @@ import 'package:repouch/controllers/amountparse_controller.dart';
 import 'package:repouch/controllers/wallet_controller.dart';
 import 'package:repouch/screens/popup_wallet_screen.dart';
 
-
 class WalletScreen extends StatelessWidget {
   final WalletController walletController = Get.put(WalletController());
 
   @override
   Widget build(BuildContext context) {
-    // Inisialisasi AmountParserController di sini jika hanya digunakan di layar ini
     Get.put(AmountParserController());
 
     return Scaffold(
-      appBar: AppBar(title: Text('Your Wallet')),
+      backgroundColor: Colors.black87,
       body: Center(
         child: Obx(() {
           String formattedBalance = NumberFormat.currency(
@@ -26,7 +24,10 @@ class WalletScreen extends StatelessWidget {
 
           return Text(
             'Balance: $formattedBalance',
-            style: TextStyle(fontSize: 24),
+            style: TextStyle(
+              fontSize: 24,
+              color: Colors.white, // Ganti warna teks menjadi putih
+            ),
           );
         }),
       ),

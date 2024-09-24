@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.to(HomeScreen());
+                Get.offAll(HomeScreen());
               },
               child: Text('Go to Home'),
             ),
