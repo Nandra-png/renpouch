@@ -45,8 +45,6 @@ class HistoryScreen extends StatelessWidget {
                       'Clear History',
                       style: TextStyle(
                         color: Colors.grey, // Gray color for the label
-                        decoration:
-                            TextDecoration.lineThrough, // Strikethrough effect
                         fontSize: 16, // Optional: Adjust font size
                       ),
                     ),
