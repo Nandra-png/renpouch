@@ -1,37 +1,34 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart'; // Untuk memformat mata uang
+import 'package:intl/intl.dart'; // For currency formatting
 
 class HistoryController extends GetxController {
-  // List yang menampung history transaksi
   var transactionHistory = <Map<String, dynamic>>[].obs;
 
   void addTransaction(Map<String, dynamic> transaction) {
     transactionHistory.add(transaction);
-    print('Transaction added: $transaction'); // Debugging
+    print('Transaction added: $transaction'); 
   }
 
-  // Fungsi untuk memformat jumlah uang dalam format IDR
+
   String formatCurrency(double amount) {
     final formatter =
         NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
     return formatter.format(amount);
   }
 
-  // Metode untuk menghapus transaksi tertentu
+ 
   void deleteTransaction(Map<String, dynamic> transaction) {
-    // Hanya hapus jika transaksi ada di dalam daftar
     if (transactionHistory.contains(transaction)) {
       transactionHistory.remove(transaction);
-      print('Transaction deleted: $transaction'); // Debugging
+      print('Transaction deleted: $transaction'); 
     } else {
-      print(
-          'Transaction not found: $transaction'); // Debugging jika tidak ditemukan
+      print('Transaction not found: $transaction'); 
     }
   }
 
-  // Metode untuk menghapus seluruh riwayat transaksi
+
   void clearHistory() {
     transactionHistory.clear();
-    print('Transaction history cleared'); // Debugging
+    print('Transaction history cleared');
   }
 }

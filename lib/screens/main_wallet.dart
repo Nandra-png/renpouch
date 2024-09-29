@@ -26,7 +26,7 @@ class WalletScreen extends StatelessWidget {
             'Balance: $formattedBalance',
             style: TextStyle(
               fontSize: 24,
-              color: Colors.white, // Ganti warna teks menjadi putih
+              color: Colors.white,
             ),
           );
         }),

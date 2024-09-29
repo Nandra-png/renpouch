@@ -35,10 +35,10 @@ class HomeScreen extends StatelessWidget {
         onTabItemSelected: (index) {
           currentIndex.value = index;
         },
-        tabIconColor: Colors.grey[400], // Warna ikon saat tidak terpilih
-        tabSelectedColor: Colors.greenAccent, // Warna ikon saat terpilih
-        tabBarColor: Colors.blueGrey[800], // Latar belakang nav bar
-        textStyle: TextStyle(color: Colors.white), // Warna teks
+        tabIconColor: Colors.grey[400], 
+        tabSelectedColor: Colors.greenAccent,
+        tabBarColor: Colors.blueGrey[800],
+        textStyle: TextStyle(color: Colors.white), 
       ),
     );
   }
