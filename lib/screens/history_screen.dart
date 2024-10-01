@@ -72,7 +72,7 @@ class HistoryScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.grey[850],
+          backgroundColor: const Color(0xFF303030),
           title: Text(
             'Clear History',
             style: TextStyle(color: Colors.white),

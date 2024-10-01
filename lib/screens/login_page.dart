@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:repouch/screens/home_screen.dart';
+import 'package:repouch/screens/bottom_nav_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.offAll(HomeScreen());
+                Get.offAll(BottomNav());
               },
               child: Text('Go to Home'),
             ),

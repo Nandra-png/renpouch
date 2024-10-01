@@ -5,7 +5,7 @@ import 'package:repouch/screens/history_screen.dart';
 import 'package:repouch/screens/main_wallet.dart';
 import 'profile_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class BottomNav extends StatelessWidget {
   final RxInt currentIndex = 0.obs;
 
   final List<Widget> screens = [
@@ -35,10 +35,10 @@ class HomeScreen extends StatelessWidget {
         onTabItemSelected: (index) {
           currentIndex.value = index;
         },
-        tabIconColor: Colors.grey[400], 
+        tabIconColor: Colors.grey[400],
         tabSelectedColor: Colors.greenAccent,
         tabBarColor: Colors.blueGrey[800],
-        textStyle: TextStyle(color: Colors.white), 
+        textStyle: TextStyle(color: Colors.white),
       ),
     );
   }
