@@ -5,7 +5,6 @@ import 'package:repouch/controllers/history_controller.dart';
 import 'package:repouch/controllers/wallet_controller.dart';
 import 'package:repouch/screens/bottom_nav_screen.dart';
 import 'package:repouch/screens/login_page.dart';
-import 'package:repouch/screens/splash_screen.dart';
 
 void main() {
   Get.put(WalletController());
@@ -22,9 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/splash',
+      initialRoute: '/login',
       getPages: [
-        GetPage(name: '/splash', page: () => SplashScreen()),
         GetPage(name: '/login', page: () => LoginScreen()),
         GetPage(name: '/home', page: () => BottomNav()),
       ],

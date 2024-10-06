@@ -25,7 +25,6 @@ class WalletController extends GetxController {
     calculateMonthlyTotals();
   }
 
-  // Fungsi untuk withdraw
   void withdraw(double amount, String message) {
     if (balance.value >= amount) {
       balance.value -= amount;
@@ -40,13 +39,12 @@ class WalletController extends GetxController {
       transactions.add(transaction);
       Get.find<HistoryController>().addTransaction(transaction.toMap());
 
-      calculateMonthlyTotals(); // Hitung total bulan ini
+      calculateMonthlyTotals();
     } else {
       print('Saldo tidak cukup untuk withdraw.');
     }
   }
 
-  // Method untuk menghitung total deposit dan withdraw bulan ini
   void calculateMonthlyTotals() {
     final now = DateTime.now();
 
@@ -64,15 +62,8 @@ class WalletController extends GetxController {
             tx.date.year == now.year)
         .fold(0.0, (sum, tx) => sum + tx.amount);
   }
-
-  // Method untuk meng-clear total deposit dan withdraw
-  void clearTotals() {
-    totalDepositsThisMonth.value = 0;
-    totalWithdrawalsThisMonth.value = 0;
-  }
 }
 
-// Model transaksi
 class Transaction {
   final double amount;
   final DateTime date;
@@ -86,7 +77,6 @@ class Transaction {
     required this.message,
   });
 
-  // Convert to Map for history logging
   Map<String, dynamic> toMap() {
     return {
       'type': type == TransactionType.deposit ? 'deposit' : 'withdraw',
@@ -97,5 +87,4 @@ class Transaction {
   }
 }
 
-// Enum untuk tipe transaksi
 enum TransactionType { deposit, withdraw }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:repouch/controllers/popup_wallet_controller.dart';
+import 'package:repouch/widgets/Textfield.dart';
+import 'package:repouch/widgets/toggle_option_wd.dart';
 
 class WithdrawDepositPopup extends StatefulWidget {
   @override
@@ -29,75 +31,29 @@ class _WithdrawDepositPopupState extends State<WithdrawDepositPopup> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildStyledTextField(
-                  amountController, 'Enter amount', TextInputType.number),
+              StyledTextField(
+                controller: amountController,
+                label: 'Enter amount',
+                keyboardType: TextInputType.number,
+              ),
               SizedBox(height: 10),
-              _buildStyledTextField(messageController,
-                  'Enter message (optional)', TextInputType.text),
+              StyledTextField(
+                controller: messageController,
+                label: 'Enter message (optional)',
+                keyboardType: TextInputType.text,
+              ),
               SizedBox(height: 20),
-              _buildToggleOption(),
+              ToggleOption(
+                selectedOption: selectedOption,
+                onOptionSelected: (option) {
+                  setState(() {
+                    selectedOption = option;
+                  });
+                },
+              ),
               SizedBox(height: 20),
               _buildStyledButton(),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStyledTextField(TextEditingController controller, String label,
-      TextInputType keyboardType) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: Colors.white),
-        filled: true,
-        fillColor: Colors.black54,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.white),
-        ),
-      ),
-      keyboardType: keyboardType,
-      style: TextStyle(color: Colors.white),
-    );
-  }
-
-  Widget _buildToggleOption() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _buildToggleButton('Deposit'),
-        SizedBox(width: 10),
-        _buildToggleButton('Withdraw'),
-      ],
-    );
-  }
-
-  Widget _buildToggleButton(String label) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedOption = label;
-        });
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: selectedOption == label ? Colors.greenAccent : Colors.black54,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white),
-        ),
-        child: Text(
-          label,
-          style: TextStyle(
-            color: selectedOption == label ? Colors.black : Colors.white,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -123,7 +79,7 @@ class _WithdrawDepositPopupState extends State<WithdrawDepositPopup> {
 
   void _onDoneButtonPressed() {
     String inputAmount = amountController.text.trim();
-    String message = messageController.text.trim(); 
+    String message = messageController.text.trim();
     WithdrawDepositLogic().handleDeposit(inputAmount, message, selectedOption);
     amountController.clear();
     messageController.clear();

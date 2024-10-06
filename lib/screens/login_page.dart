@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
             ),
             // Bagian gambar utama dan oval
             Positioned(
-              left: 33,
+              left: 24,
               top: 306,
               child: Container(
                 width: 363.82,
@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                         width: 234.45,
                         height: 251.11,
                         decoration: ShapeDecoration(
-                          color: Color(0xFFFF6D6F),
+                          color: Color(0xFFF38878),
                           shape: OvalBorder(),
                         ),
                       ),
@@ -79,7 +79,7 @@ class LoginScreen extends StatelessWidget {
                           width: 195.78,
                           height: 207.72,
                           decoration: ShapeDecoration(
-                            color: Color(0xFFFF6D6F),
+                            color: Color(0xFF18E799),
                             shape: OvalBorder(),
                           ),
                         ),
@@ -128,7 +128,7 @@ class LoginScreen extends StatelessWidget {
                         color: Colors.black,
                         fontSize: 24,
                         fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w900,
                         height: 1.2,
                       ),
                     ),

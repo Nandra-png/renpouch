@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:repouch/controllers/history_controller.dart';
-import 'package:repouch/widgets/transaction_card.dart';
+import 'package:repouch/widgets/header_history.dart';
+import 'package:repouch/widgets/transaction_list.dart';
 
 class HistoryScreen extends StatelessWidget {
   final HistoryController historyController = Get.find();
@@ -16,54 +17,17 @@ class HistoryScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 40),
-              _buildHeader(context),
-              SizedBox(height: 10),
+              const SizedBox(height: 50),
+              HistoryHeader(
+                  onClearHistory: () => _showClearHistoryConfirmation(context)),
+              const SizedBox(height: 10),
               Expanded(
-                child: Obx(() {
-                  var transactions =
-                      List.from(historyController.transactionHistory.reversed);
-                  return ListView.builder(
-                    itemCount: transactions.length,
-                    itemBuilder: (context, index) {
-                      final transaction = transactions[index];
-                      return TransactionCard(transaction: transaction);
-                    },
-                  );
-                }),
+                child: TransactionList(),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Your Transactions',
-          style: TextStyle(
-            fontSize: 24,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            _showClearHistoryConfirmation(context);
-          },
-          child: Text(
-            'Clear History',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ],
     );
   }
 
