@@ -5,25 +5,33 @@ import 'package:repouch/screens/login_page.dart';
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Mendapatkan ukuran layar
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Container(
-        width: 430,
-        height: 875,
+        width: screenWidth, // Sesuaikan dengan lebar layar
+        height: screenHeight, // Sesuaikan dengan tinggi layar
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(color: Colors.black87),
         child: Stack(
           children: [
+            // Profile Image
             Positioned(
-              left: 43,
-              top: 114,
+              left: screenWidth *
+                  0.1, // Sesuaikan posisi berdasarkan persentase lebar layar
+              top: screenHeight *
+                  0.1, // Sesuaikan posisi berdasarkan persentase tinggi layar
               child: Container(
-                width: 344,
-                height: 348,
+                width: screenWidth *
+                    0.8, // Sesuaikan lebar berdasarkan persentase lebar layar
+                height: screenHeight *
+                    0.4, // Sesuaikan tinggi berdasarkan persentase tinggi layar
                 decoration: ShapeDecoration(
                   image: DecorationImage(
-                    // Replace with your local asset image
                     image: AssetImage('assets/profile.png'),
-                    fit: BoxFit.fill,
+                    fit: BoxFit.contain, // Mempertahankan rasio gambar
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(11),
@@ -31,80 +39,84 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
+            // Profile title
             Positioned(
-              left: 87,
-              top: 481,
-              child: SizedBox(
-                width: 300,
-                height: 49,
+              left: 0,
+              right: 0,
+              top: screenHeight * 0.05,
+              child: Center(
+                // Membungkus dengan Center untuk memusatkan teks
                 child: Text(
-                  'Arka Narendra',
+                  'Profile',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                    fontFamily: 'Vidaloka',
+                    color: Color(0xFF908F9D),
+                    fontSize: 20,
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
-                    // Remove or change height to a normal value like 1.2
                   ),
                 ),
               ),
             ),
-            // Username Text
+            // Nama Pengguna, Username, dan Logout di bawah gambar
             Positioned(
-              left: 159,
-              top: 532,
-              child: Text(
-                '@narentoo',
-                style: TextStyle(
-                  color: Color(0xFF908F9D),
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 0.07,
-                ),
-              ),
-            ),
-
-            // Profile Title Text
-            Positioned(
-              left: 185,
-              top: 60,
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                  color: Color(0xFF908F9D),
-                  fontSize: 20,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            // Logout Button Text
-            Positioned(
-              left: 138,
-              top: 592,
-              child: GestureDetector(
-                onTap: () {
-                  Get.offAll(LoginScreen()); 
-                },
-                child: Container(
-                  width: 154,
-                  height: 43,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF38878), 
-                    borderRadius: BorderRadius.circular(31),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Logout',
+              left: 0,
+              right: 0,
+              top: screenHeight * 0.5,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Nama Pengguna
+                  Text(
+                    'Arka Narendra',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
+                      fontSize: 40,
+                      fontFamily: 'Vidaloka',
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                ),
+                  SizedBox(height: 10), // Jarak antar teks
+
+                  // Username (@narentoo) di tengah
+                  Center(
+                    child: Text(
+                      '@narentoo',
+                      style: TextStyle(
+                        color: Color(0xFF908F9D),
+                        fontSize: 20,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                      height: 30), // Jarak antara username dan tombol logout
+
+                  // Logout Button
+                  GestureDetector(
+                    onTap: () {
+                      Get.offAll(LoginScreen()); // Pindah ke layar login
+                    },
+                    child: Container(
+                      width: screenWidth * 0.4,
+                      height: 43,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF38878),
+                        borderRadius: BorderRadius.circular(31),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

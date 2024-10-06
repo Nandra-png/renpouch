@@ -42,9 +42,10 @@ class BalanceDisplay extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Color(0xFF121013), // Set background color
+          backgroundColor:
+              const Color.fromARGB(255, 29, 37, 41), // Set background color
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15), // Rounded corners
+            borderRadius: BorderRadius.circular(20), // Rounded corners
           ),
           title: Text(
             'Your Balance',
@@ -84,7 +85,8 @@ class BalanceDisplay extends StatelessWidget {
               child: Text(
                 'Close',
                 style: TextStyle(
-                  color: const Color.fromARGB(255, 243, 33, 33), // Button text color
+                  color: const Color.fromARGB(
+                      255, 243, 33, 33), // Button text color
                 ),
               ),
             ),

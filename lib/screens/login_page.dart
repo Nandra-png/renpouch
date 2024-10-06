@@ -5,6 +5,9 @@ import 'package:repouch/screens/bottom_nav_screen.dart';
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -12,18 +15,17 @@ class LoginScreen extends StatelessWidget {
         decoration: BoxDecoration(color: Color(0xFF121013)),
         child: Stack(
           children: [
-            // teks "Create A Better Future For Yourself"
             Positioned(
-              left: 43,
-              top: 97,
+              left: width * 0.1,
+              top: height * 0.1,
               child: Image.asset(
                 'assets/maintext.png',
-                width: 314,
+                width: width * 0.8,
               ),
             ),
             Positioned(
-              left: 46,
-              top: 75,
+              left: width * 0.1,
+              top: height * 0.08,
               child: Text.rich(
                 TextSpan(
                   children: [
@@ -49,21 +51,20 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Bagian gambar utama dan oval
             Positioned(
-              left: 24,
-              top: 306,
+              left: width * 0.05,
+              top: height * 0.3,
               child: Container(
-                width: 363.82,
-                height: 369,
+                width: width * 0.9,
+                height: width * 0.9 * 1.25,
                 child: Stack(
                   children: [
                     Positioned(
-                      left: 29.56,
-                      top: 64.44,
+                      left: width * 0.08,
+                      top: height * 0.1,
                       child: Container(
-                        width: 234.45,
-                        height: 251.11,
+                        width: width * 0.55,
+                        height: width * 0.9 * 0.60,
                         decoration: ShapeDecoration(
                           color: Color(0xFFF38878),
                           shape: OvalBorder(),
@@ -71,15 +72,15 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      left: 168.04,
-                      top: 108,
+                      left: width * 0.345,
+                      top: height * 0.15,
                       child: Transform(
                         transform: Matrix4.identity()..rotateZ(0.01),
                         child: Container(
-                          width: 195.78,
-                          height: 207.72,
+                          width: width * 0.55,
+                          height: width * 0.9 * 0.67,
                           decoration: ShapeDecoration(
-                            color: Color(0xFF18E799),
+                            color: Color(0xFFF38878),
                             shape: OvalBorder(),
                           ),
                         ),
@@ -89,13 +90,12 @@ class LoginScreen extends StatelessWidget {
                       left: 0,
                       top: 0,
                       child: Container(
-                        width: 362,
-                        height: 369,
+                        width: width * 0.9,
+                        height: width * 0.9 * 1.25,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(
-                                'assets/moneypage.png'), // Gambar utama lokal
-                            fit: BoxFit.fill,
+                            image: AssetImage('assets/moneypage.png'),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -104,19 +104,18 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Tombol "Start Now"
             Positioned(
-              left: 47,
-              top: 768,
+              left: width * 0.1,
+              top: height * 0.83,
               child: GestureDetector(
                 onTap: () {
                   Get.offAll(BottomNav());
                 },
                 child: Container(
-                  width: 314,
-                  height: 73,
+                  width: width * 0.8,
+                  height: height * 0.08,
                   decoration: ShapeDecoration(
-                    color: Color(0xFFFEFEFE), // Warna tombol
+                    color: Color(0xFFFEFEFE),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(31),
                     ),
