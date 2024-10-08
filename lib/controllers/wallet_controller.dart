@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:repouch/widgets/sharedpreference.dart';
+import 'package:repouch/local_Database/sharedpreference.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'history_controller.dart';
 
