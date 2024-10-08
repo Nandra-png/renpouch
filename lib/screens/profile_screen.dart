@@ -11,23 +11,19 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        width: screenWidth, // Sesuaikan dengan lebar layar
-        height: screenHeight, // Sesuaikan dengan tinggi layar
+        width: screenWidth,
+        height: screenHeight,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(color: Colors.black87),
         child: Stack(
           children: [
             // Profile Image
             Positioned(
-              left: screenWidth *
-                  0.1, // Sesuaikan posisi berdasarkan persentase lebar layar
-              top: screenHeight *
-                  0.1, // Sesuaikan posisi berdasarkan persentase tinggi layar
+              left: screenWidth * 0.1,
+              top: screenHeight * 0.1,
               child: Container(
-                width: screenWidth *
-                    0.8, // Sesuaikan lebar berdasarkan persentase lebar layar
-                height: screenHeight *
-                    0.4, // Sesuaikan tinggi berdasarkan persentase tinggi layar
+                width: screenWidth * 0.8,
+                height: screenHeight * 0.4,
                 decoration: ShapeDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/profile.png'),
@@ -57,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            // Nama Pengguna, Username, dan Logout di bawah gambar
+            //teks profile
             Positioned(
               left: 0,
               right: 0,
@@ -65,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Nama Pengguna
+                  // Nama
                   Text(
                     'Arka Narendra',
                     style: TextStyle(
@@ -75,9 +71,9 @@ class ProfileScreen extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  SizedBox(height: 10), // Jarak antar teks
+                  SizedBox(height: 10),
 
-                  // Username (@narentoo) di tengah
+                  // Narentoo
                   Center(
                     child: Text(
                       '@narentoo',
@@ -89,13 +85,12 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                      height: 30), // Jarak antara username dan tombol logout
+                  SizedBox(height: 30),
 
                   // Logout Button
                   GestureDetector(
                     onTap: () {
-                      Get.offAll(LoginScreen()); // Pindah ke layar login
+                      Get.offAll(LoginScreen());
                     },
                     child: Container(
                       width: screenWidth * 0.4,

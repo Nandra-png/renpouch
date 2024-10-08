@@ -15,6 +15,7 @@ class LoginScreen extends StatelessWidget {
         decoration: BoxDecoration(color: Color(0xFF121013)),
         child: Stack(
           children: [
+            // teks "Create A Better Future For Yourself"
             Positioned(
               left: width * 0.1,
               top: height * 0.1,
@@ -51,6 +52,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
+            // Bagian gambar utama dan oval
             Positioned(
               left: width * 0.05,
               top: height * 0.3,
@@ -60,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
-                      left: width * 0.08,
+                      left: width * 0.1,
                       top: height * 0.1,
                       child: Container(
                         width: width * 0.55,
@@ -78,7 +80,7 @@ class LoginScreen extends StatelessWidget {
                         transform: Matrix4.identity()..rotateZ(0.01),
                         child: Container(
                           width: width * 0.55,
-                          height: width * 0.9 * 0.67,
+                          height: width * 0.9 * 0.60,
                           decoration: ShapeDecoration(
                             color: Color(0xFFF38878),
                             shape: OvalBorder(),
@@ -91,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                       top: 0,
                       child: Container(
                         width: width * 0.9,
-                        height: width * 0.9 * 1.25,
+                        height: width * 1 * 1,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/moneypage.png'),
@@ -104,6 +106,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
             ),
+            // Tombol "Start Now"
             Positioned(
               left: width * 0.1,
               top: height * 0.83,

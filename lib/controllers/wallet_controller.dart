@@ -1,18 +1,54 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:repouch/widgets/sharedpreference.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'history_controller.dart';
 
 class WalletController extends GetxController {
-  var balance = 0.0.obs; // Untuk menyimpan saldo
-  var totalDepositsThisMonth = 0.0.obs; // Total deposit bulan ini
-  var totalWithdrawalsThisMonth = 0.0.obs; // Total withdraw bulan ini
-
+  var balance = 0.0.obs;
+  var totalDepositsThisMonth = 0.0.obs;
+  var totalWithdrawalsThisMonth = 0.0.obs;
   var transactions = <Transaction>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadBalance();
+    loadMonthlyTotals();
+  }
+
+  void clearMonthlyTotals() {
+    totalDepositsThisMonth.value = 0.0;
+    totalWithdrawalsThisMonth.value = 0.0;
+    saveMonthlyTotals();
+  }
+
+  Future<void> loadBalance() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    balance.value = prefs.getDouble('balance') ?? 0.0;
+  }
+
+  Future<void> saveBalance() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('balance', balance.value);
+  }
+
+  Future<void> loadMonthlyTotals() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    totalDepositsThisMonth.value = prefs.getDouble('totalDeposits') ?? 0.0;
+    totalWithdrawalsThisMonth.value =
+        prefs.getDouble('totalWithdrawals') ?? 0.0;
+  }
+
+  Future<void> saveMonthlyTotals() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('totalDeposits', totalDepositsThisMonth.value);
+    await prefs.setDouble('totalWithdrawals', totalWithdrawalsThisMonth.value);
+  }
 
   void deposit(double amount, String message) {
     balance.value += amount;
+    saveBalance();
 
-    // Tambahkan transaksi deposit ke history
     var transaction = Transaction(
       type: TransactionType.deposit,
       amount: amount,
@@ -22,14 +58,16 @@ class WalletController extends GetxController {
     transactions.add(transaction);
     Get.find<HistoryController>().addTransaction(transaction.toMap());
 
+    totalDepositsThisMonth.value += amount;
+    saveMonthlyTotals();
     calculateMonthlyTotals();
   }
 
   void withdraw(double amount, String message) {
     if (balance.value >= amount) {
       balance.value -= amount;
+      saveBalance();
 
-      // Tambahkan transaksi withdraw ke history
       var transaction = Transaction(
         type: TransactionType.withdraw,
         amount: amount,
@@ -39,6 +77,8 @@ class WalletController extends GetxController {
       transactions.add(transaction);
       Get.find<HistoryController>().addTransaction(transaction.toMap());
 
+      totalWithdrawalsThisMonth.value += amount;
+      saveMonthlyTotals();
       calculateMonthlyTotals();
     } else {
       print('Saldo tidak cukup untuk withdraw.');
@@ -61,29 +101,6 @@ class WalletController extends GetxController {
             tx.date.month == now.month &&
             tx.date.year == now.year)
         .fold(0.0, (sum, tx) => sum + tx.amount);
-  }
-}
-
-class Transaction {
-  final double amount;
-  final DateTime date;
-  final TransactionType type;
-  final String message;
-
-  Transaction({
-    required this.amount,
-    required this.date,
-    required this.type,
-    required this.message,
-  });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'type': type == TransactionType.deposit ? 'deposit' : 'withdraw',
-      'amount': amount,
-      'date': DateFormat('yyyy-MM-dd').format(date),
-      'message': message,
-    };
   }
 }
 

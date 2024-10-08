@@ -43,9 +43,9 @@ class BalanceDisplay extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor:
-              const Color.fromARGB(255, 29, 37, 41), // Set background color
+              const Color.fromARGB(255, 29, 37, 41), 
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20), // Rounded corners
+            borderRadius: BorderRadius.circular(20), 
           ),
           title: Text(
             'Your Balance',

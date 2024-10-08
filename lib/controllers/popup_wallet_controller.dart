@@ -8,7 +8,6 @@ class WithdrawDepositLogic {
   final WalletController walletController = Get.find();
   final AmountParserController amountParserController = Get.find();
 
-  // Function to format amount with Indonesian currency
   String formatCurrency(double amount) {
     final formatter =
         NumberFormat.currency(locale: 'id_ID', symbol: 'Rp', decimalDigits: 0);
@@ -31,7 +30,7 @@ class WithdrawDepositLogic {
         Get.back();
         _showSnackbar(
             'Successfully Deposited!',
-            'Successfully recorded an amount of ${formatCurrency(amount)}.',
+            'Successfully recorded an amount of ${formatCurrency(amount)}',
             Colors.green);
       } else if (selectedOption == 'Withdraw') {
         if (walletController.balance < amount) {
@@ -43,7 +42,7 @@ class WithdrawDepositLogic {
           Get.back();
           _showSnackbar(
               'Successfully Withdrawn!',
-              'Successfully withdrew an amount of ${formatCurrency(amount)}.',
+              'Successfully withdrew an amount of ${formatCurrency(amount)}',
               Colors.red);
         }
       }
