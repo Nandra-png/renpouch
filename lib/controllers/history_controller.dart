@@ -1,55 +1,42 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Tambahkan ini
-import 'dart:convert'; // Tambahkan ini untuk JSON encoding/decoding
+import 'package:repouch/local_Database/database_helper.dart';
+import 'package:repouch/widgets/HistoryModel.dart';
 
 class HistoryController extends GetxController {
-  var transactionHistory = <Map<String, dynamic>>[].obs;
+  var transactionHistory = <HistoryModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadTransactionHistory(); // Panggil loadTransactionHistory saat inisialisasi
+    loadTransactionHistory();
   }
 
   Future<void> loadTransactionHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? historyJson = prefs
-        .getString('transactionHistory'); // Muat riwayat dari SharedPreferences
-    if (historyJson != null) {
-      // Jika ada data, decode JSON ke dalam list
-      List<dynamic> decodedList = json.decode(historyJson);
-      transactionHistory.value = List<Map<String, dynamic>>.from(decodedList);
-    }
+    final List<Map<String, dynamic>> transactions =
+        await DatabaseHelper.instance.getAllTransactions();
+    transactionHistory.assignAll(
+        transactions.map((data) => HistoryModel.fromMap(data)).toList());
   }
 
-  Future<void> saveTransactionHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Encode daftar transaksi ke dalam JSON dan simpan ke SharedPreferences
-    await prefs.setString(
-        'transactionHistory', json.encode(transactionHistory));
+  Future<void> saveTransaction(Map<String, dynamic> transaction) async {
+    await DatabaseHelper.instance.insertTransaction(transaction);
+    loadTransactionHistory();
   }
 
   void addTransaction(Map<String, dynamic> transaction) {
-    transactionHistory.add(transaction);
+    saveTransaction(transaction);
     print('Transaction added: $transaction');
-    saveTransactionHistory(); // Simpan riwayat setiap kali ada transaksi baru
   }
 
-  void deleteTransaction(Map<String, dynamic> transaction) {
-    if (transactionHistory.contains(transaction)) {
-      transactionHistory.remove(transaction);
-      print('Transaction deleted: $transaction');
-      saveTransactionHistory(); // Simpan riwayat setelah transaksi dihapus
-    } else {
-      print('Transaction not found: $transaction');
-    }
+  void deleteTransaction(Map<String, dynamic> transaction) async {
+    await DatabaseHelper.instance.deleteTransaction(transaction['id']);
+    loadTransactionHistory();
   }
 
-  void clearHistory() {
-    transactionHistory.clear();
-    print('Transaction history cleared');
-    saveTransactionHistory(); // Simpan riwayat setelah dihapus
+  void clearHistory() async {
+    await DatabaseHelper.instance.clearTransactions();
+    loadTransactionHistory();
   }
 
   String formatCurrency(double amount) {

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'wallet_controller.dart';
 import 'amountparse_controller.dart';
 
-class WithdrawDepositLogic {
+class WithdrawDepositController extends GetxController {
   final WalletController walletController = Get.find();
   final AmountParserController amountParserController = Get.find();
 

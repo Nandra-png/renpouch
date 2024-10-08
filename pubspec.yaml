@@ -14,6 +14,8 @@ dependencies:
   motion_tab_bar_v2: ^0.3.0
   table_calendar: ^3.0.0
   shared_preferences: ^2.0.12 
+  sqflite: ^2.0.0+4
+  path: ^1.8.1
   
 
 

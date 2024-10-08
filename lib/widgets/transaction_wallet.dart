@@ -80,15 +80,6 @@ class TransactionCard extends StatelessWidget {
                 style: TextStyle(color: Colors.redAccent),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: const Text(
-                'Cancel',
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
           ],
         );
       },

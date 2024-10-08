@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:repouch/controllers/history_controller.dart';
 import 'package:repouch/widgets/header_history.dart';
-import 'package:repouch/widgets/transaction_list.dart';
+import 'package:repouch/widgets/HistoryListview.dart';
 
 class HistoryScreen extends StatelessWidget {
   final HistoryController historyController = Get.find();
@@ -22,7 +22,7 @@ class HistoryScreen extends StatelessWidget {
                   onClearHistory: () => _showClearHistoryConfirmation(context)),
               const SizedBox(height: 10),
               Expanded(
-                child: TransactionList(),
+                child: HistoryListview(),
               ),
             ],
           ),

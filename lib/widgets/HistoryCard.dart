@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:repouch/controllers/history_controller.dart';
+import 'package:repouch/widgets/HistoryModel.dart';
 
-class TransactionCard extends StatelessWidget {
-  final Map<String, dynamic> transaction;
+class HistoryCard extends StatelessWidget {
+  final HistoryModel transaction;
 
-  TransactionCard({required this.transaction});
+  HistoryCard({required this.transaction});
 
   @override
   Widget build(BuildContext context) {
-    final bool isDeposit = transaction['type'] == 'deposit';
+    final bool isDeposit = transaction.type == 'deposit';
     final String formattedAmount =
-        Get.find<HistoryController>().formatCurrency(transaction['amount']);
+        Get.find<HistoryController>().formatCurrency(transaction.amount);
 
     return GestureDetector(
       onTap: () {
@@ -51,7 +52,7 @@ class TransactionCard extends StatelessWidget {
                 ),
               ),
               Text(
-                transaction['date'],
+                transaction.date,
                 style: TextStyle(color: Colors.white70),
               ),
             ],
@@ -70,7 +71,8 @@ class TransactionCard extends StatelessWidget {
             ],
             onSelected: (value) {
               if (value == 'delete') {
-                Get.find<HistoryController>().deleteTransaction(transaction);
+                Get.find<HistoryController>()
+                    .deleteTransaction(transaction.toMap());
               }
             },
           ),
@@ -79,12 +81,11 @@ class TransactionCard extends StatelessWidget {
     );
   }
 
-  void _showTransactionDetails(
-      BuildContext context, Map<String, dynamic> transaction) {
-    bool isDeposit = transaction['type'] == 'deposit';
+  void _showTransactionDetails(BuildContext context, HistoryModel transaction) {
+    bool isDeposit = transaction.type == 'deposit';
 
     final String formattedAmount =
-        Get.find<HistoryController>().formatCurrency(transaction['amount']);
+        Get.find<HistoryController>().formatCurrency(transaction.amount);
 
     showDialog(
       context: context,
@@ -114,11 +115,11 @@ class TransactionCard extends StatelessWidget {
                 style: TextStyle(color: Colors.black, fontSize: 20),
               ),
               Text(
-                'Message: ${transaction['message']}',
+                'Message: ${transaction.message}',
                 style: TextStyle(color: Colors.black),
               ),
               Text(
-                '${transaction['date']}',
+                '${transaction.date}',
                 style: TextStyle(color: Colors.black),
               ),
             ],

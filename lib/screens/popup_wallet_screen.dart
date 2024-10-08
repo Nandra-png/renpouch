@@ -80,7 +80,8 @@ class _WithdrawDepositPopupState extends State<WithdrawDepositPopup> {
   void _onDoneButtonPressed() {
     String inputAmount = amountController.text.trim();
     String message = messageController.text.trim();
-    WithdrawDepositLogic().handleDeposit(inputAmount, message, selectedOption);
+    WithdrawDepositController()
+        .handleDeposit(inputAmount, message, selectedOption);
     amountController.clear();
     messageController.clear();
   }
