@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:repouch/controllers/history_controller.dart';
 import 'package:repouch/widgets/HistoryModel.dart';
 
@@ -8,11 +9,18 @@ class HistoryCard extends StatelessWidget {
 
   HistoryCard({required this.transaction});
 
+  String formatDate(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isDeposit = transaction.type == 'deposit';
     final String formattedAmount =
         Get.find<HistoryController>().formatCurrency(transaction.amount);
+
+    // Assuming transaction.date is a String, convert it to DateTime
+    DateTime transactionDate = DateTime.parse(transaction.date);
 
     return GestureDetector(
       onTap: () {
@@ -52,7 +60,7 @@ class HistoryCard extends StatelessWidget {
                 ),
               ),
               Text(
-                transaction.date,
+                formatDate(transactionDate), // Format the date here
                 style: TextStyle(color: Colors.white70),
               ),
             ],
@@ -87,6 +95,9 @@ class HistoryCard extends StatelessWidget {
     final String formattedAmount =
         Get.find<HistoryController>().formatCurrency(transaction.amount);
 
+    // Assuming transaction.date is a String, convert it to DateTime
+    DateTime transactionDate = DateTime.parse(transaction.date);
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -119,7 +130,7 @@ class HistoryCard extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               Text(
-                '${transaction.date}',
+                formatDate(transactionDate), // Format the date here
                 style: TextStyle(color: Colors.black),
               ),
             ],

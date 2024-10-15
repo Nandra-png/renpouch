@@ -5,7 +5,7 @@ import 'package:repouch/screens/login_page.dart';
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Mendapatkan ukuran layar
+    
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
         decoration: BoxDecoration(color: Colors.black87),
         child: Stack(
           children: [
-            // Profile Image
+           
             Positioned(
               left: screenWidth * 0.1,
               top: screenHeight * 0.1,
@@ -27,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
                 decoration: ShapeDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/profile.png'),
-                    fit: BoxFit.contain, // Mempertahankan rasio gambar
+                    fit: BoxFit.contain,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(11),
@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
               right: 0,
               top: screenHeight * 0.05,
               child: Center(
-                // Membungkus dengan Center untuk memusatkan teks
+  
                 child: Text(
                   'Profile',
                   style: TextStyle(
@@ -63,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   // Nama
                   Text(
-                    'Arka Narendra',
+                    'Guest',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 40,
@@ -76,7 +76,7 @@ class ProfileScreen extends StatelessWidget {
                   // Narentoo
                   Center(
                     child: Text(
-                      '@narentoo',
+                      '@none',
                       style: TextStyle(
                         color: Color(0xFF908F9D),
                         fontSize: 20,

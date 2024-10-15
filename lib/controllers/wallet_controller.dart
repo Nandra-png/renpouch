@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:repouch/local_Database/sharedpreference.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:repouch/local_Database/database_helper.dart';
+import 'package:repouch/local_Database/transaction.dart';
 import 'history_controller.dart';
 
 class WalletController extends GetxController {
@@ -13,38 +13,48 @@ class WalletController extends GetxController {
   void onInit() {
     super.onInit();
     loadBalance();
-    loadMonthlyTotals();
+    loadTransactions(); // Load transactions from the database
   }
 
-  void clearMonthlyTotals() {
-    totalDepositsThisMonth.value = 0.0;
-    totalWithdrawalsThisMonth.value = 0.0;
-    saveMonthlyTotals();
-  }
+  
 
+  // Load balance dari database
   Future<void> loadBalance() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    balance.value = prefs.getDouble('balance') ?? 0.0;
+    balance.value = await DatabaseHelper.instance.loadBalance();
   }
 
+  
+
+  // Load transactions dari database
+  Future<void> loadTransactions() async {
+    final transactionMaps = await DatabaseHelper.instance.getAllTransactions();
+    transactions.value = transactionMaps.map((map) => Transaction.fromMap(map)).toList();
+    calculateMonthlyTotals(); // Calculate monthly totals after loading transactions
+    loadMonthlyTotals(); // Load monthly totals from database to ensure they are up-to-date
+  }
+
+  // Simpan balance ke database
   Future<void> saveBalance() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('balance', balance.value);
+    await DatabaseHelper.instance.saveBalance(balance.value);
   }
 
+  // Load total deposit dan withdraw bulanan dari database
   Future<void> loadMonthlyTotals() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    totalDepositsThisMonth.value = prefs.getDouble('totalDeposits') ?? 0.0;
-    totalWithdrawalsThisMonth.value =
-        prefs.getDouble('totalWithdrawals') ?? 0.0;
+    final totals = await DatabaseHelper.instance.loadMonthlyTotals();
+    totalDepositsThisMonth.value = totals['totalDeposits']!;
+    totalWithdrawalsThisMonth.value = totals['totalWithdrawals']!;
   }
 
+  // Simpan total deposit dan withdraw bulanan ke database
   Future<void> saveMonthlyTotals() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setDouble('totalDeposits', totalDepositsThisMonth.value);
-    await prefs.setDouble('totalWithdrawals', totalWithdrawalsThisMonth.value);
+    await DatabaseHelper.instance.saveMonthlyTotals(
+      totalDepositsThisMonth.value,
+      totalWithdrawalsThisMonth.value,
+    );
   }
 
+
+  // Deposit saldo
   void deposit(double amount, String message) {
     balance.value += amount;
     saveBalance();
@@ -63,6 +73,7 @@ class WalletController extends GetxController {
     calculateMonthlyTotals();
   }
 
+  // Withdraw saldo
   void withdraw(double amount, String message) {
     if (balance.value >= amount) {
       balance.value -= amount;
@@ -85,6 +96,7 @@ class WalletController extends GetxController {
     }
   }
 
+  // Hitung ulang total deposit dan withdraw bulanan
   void calculateMonthlyTotals() {
     final now = DateTime.now();
 
@@ -101,6 +113,8 @@ class WalletController extends GetxController {
             tx.date.month == now.month &&
             tx.date.year == now.year)
         .fold(0.0, (sum, tx) => sum + tx.amount);
+
+    saveMonthlyTotals(); // Save the calculated totals
   }
 }
 
