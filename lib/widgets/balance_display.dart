@@ -85,7 +85,7 @@ class BalanceDisplay extends StatelessWidget {
                 'Close',
                 style: TextStyle(
                   color: const Color.fromARGB(
-                      255, 243, 33, 33), // Button text color
+                      255, 243, 33, 33), 
                 ),
               ),
             ),

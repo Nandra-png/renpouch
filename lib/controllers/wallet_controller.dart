@@ -13,39 +13,37 @@ class WalletController extends GetxController {
   void onInit() {
     super.onInit();
     loadBalance();
-    loadTransactions(); // Load transactions from the database
+    loadTransactions(); 
   }
 
   
 
-  // Load balance dari database
   Future<void> loadBalance() async {
     balance.value = await DatabaseHelper.instance.loadBalance();
   }
 
   
 
-  // Load transactions dari database
   Future<void> loadTransactions() async {
     final transactionMaps = await DatabaseHelper.instance.getAllTransactions();
     transactions.value = transactionMaps.map((map) => Transaction.fromMap(map)).toList();
-    calculateMonthlyTotals(); // Calculate monthly totals after loading transactions
-    loadMonthlyTotals(); // Load monthly totals from database to ensure they are up-to-date
+    calculateMonthlyTotals(); 
+    loadMonthlyTotals();
   }
 
-  // Simpan balance ke database
+
   Future<void> saveBalance() async {
     await DatabaseHelper.instance.saveBalance(balance.value);
-  }
+  } 
 
-  // Load total deposit dan withdraw bulanan dari database
+
   Future<void> loadMonthlyTotals() async {
     final totals = await DatabaseHelper.instance.loadMonthlyTotals();
     totalDepositsThisMonth.value = totals['totalDeposits']!;
     totalWithdrawalsThisMonth.value = totals['totalWithdrawals']!;
   }
 
-  // Simpan total deposit dan withdraw bulanan ke database
+ 
   Future<void> saveMonthlyTotals() async {
     await DatabaseHelper.instance.saveMonthlyTotals(
       totalDepositsThisMonth.value,
@@ -114,7 +112,7 @@ class WalletController extends GetxController {
             tx.date.year == now.year)
         .fold(0.0, (sum, tx) => sum + tx.amount);
 
-    saveMonthlyTotals(); // Save the calculated totals
+    saveMonthlyTotals(); 
   }
 }
 
